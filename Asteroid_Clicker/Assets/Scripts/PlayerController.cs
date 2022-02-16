@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//change color on LMB and destroy it
 //gamestate class?
 
 //scalable ui
@@ -18,15 +17,18 @@ using UnityEngine;
 //asserts everywhere
 //comments
 //layermasks
+//interfejsy, dziedziczenie?
+//uzyc get component gdzie ma sens i nie uzywac gdzie nie ma
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float m_movementIntensity = .0f;
-    [SerializeField] private GameObject m_cameraTarget = null;
-    private Rigidbody m_rigidBody = null;
+    [SerializeField] private float m_MovementSpeed = .0f;
+    [SerializeField] private GameObject m_CameraObject = null;
+
+    private Collider m_CurrentlyTriggeredCubeCollider = null;
 
     private void Start()
     {
-        m_rigidBody = GetComponent<Rigidbody>();
+        GameManager.Get().ResetGameState();
     }
 
     private void Update()
@@ -40,29 +42,53 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * 100, Space.World);
         }
 
-        var ForwardDirection = m_cameraTarget.transform.forward;
-        var RightDirection = m_cameraTarget.transform.right;
+        var ForwardDirection = m_CameraObject.transform.forward;
+        var RightDirection = m_CameraObject.transform.right;
         
         if (Input.GetKey(KeyCode.W))
         {            
-            transform.position += (ForwardDirection * m_movementIntensity) *Time.deltaTime;
+            transform.position += (ForwardDirection * m_MovementSpeed) *Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position += (-ForwardDirection * m_movementIntensity) * Time.deltaTime;
+            transform.position += (-ForwardDirection * m_MovementSpeed) * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.E))
         {
-            transform.position += (RightDirection * m_movementIntensity) * Time.deltaTime;
+            transform.position += (RightDirection * m_MovementSpeed) * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            transform.position += (-RightDirection * m_movementIntensity )* Time.deltaTime;
+            transform.position += (-RightDirection * m_MovementSpeed )* Time.deltaTime;
         }
 
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKeyUp(KeyCode.Space))
         {
 
         }
+
+        if(Input.GetKeyUp(KeyCode.R))
+        {
+            IncrementCubeColor();            
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        m_CurrentlyTriggeredCubeCollider = other;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        m_CurrentlyTriggeredCubeCollider = null;
+    }
+
+    //red, green, blue, destroy
+    private void IncrementCubeColor()
+    {
+        if (!m_CurrentlyTriggeredCubeCollider)
+            return;
+
+        m_CurrentlyTriggeredCubeCollider.GetComponent<Cube>().IncrementCubeColor();
     }
 }
