@@ -2,23 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//setup properly in input settings
-//rotating camera with mouse
-//separate cube spawner class
-//block input on collision till released
-//asserty
-//design better variables
+//change color on LMB and destroy it
 //gamestate class?
-//start vs awake
+
+//scalable ui
+//getting points of cube destroy
+//_______________________________________
+//block input on collision till released
+//setup properly in input settings
+//move all input to player controller
+//rotating camera with mouse
+
+//encapsulate
+//same case everywhere
+//asserts everywhere
+//comments
+//layermasks
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float m_movementIntensity = .0f;
     [SerializeField] private GameObject m_cameraTarget = null;
-    //[SerializeField] private Transform m_CubeSpawnTransform = null;
-    //[SerializeField] private BoxCollider m_FloorCollider = null;
     private Rigidbody m_rigidBody = null;
 
-    private void Awake()
+    private void Start()
     {
         m_rigidBody = GetComponent<Rigidbody>();
     }

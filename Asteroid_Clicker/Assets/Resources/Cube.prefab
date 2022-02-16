@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7078434250034131207}
-  m_Layer: 0
-  m_Name: AlignToFloor
+  m_Layer: 6
+  m_Name: AlignToFloorTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 7186989023158697456}
   - component: {fileID: -3823845304237859830}
   - component: {fileID: -7172173256632539572}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
