@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//rotating camera with mouse
-
-//sprawdzic czy da sie uruchomic projekt z repo
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float m_MovementSpeed = .0f;
